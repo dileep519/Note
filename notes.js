@@ -3,8 +3,12 @@ const uniq=require('uniq');
 const chalk=require('chalk');
 var getNotes=(title)=>{
     var notes=loadNotes();
-    var body=notes.find((element)=>element.title=title);
+    var body=notes.find((element)=>element.title==title);
+    if(body){
     console.table(body);
+    }else{
+        console.log(chalk.yellow.inverse("Title not found"));
+    }
 };
 const addNotes=(title,body)=>{
     var notes=loadNotes();
@@ -13,7 +17,7 @@ const addNotes=(title,body)=>{
     // });
     //Using find
     var duplicate=notes.find(element=> element.title===title);
-    if(duplicate.length!=0){
+    if(duplicate.length==0){
         notes.push({
             title,
             body
